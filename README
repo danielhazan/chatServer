@@ -1,0 +1,43 @@
+nitailb, daniel.hazan
+30801819, 20338582
+EX: 4
+
+FILES:
+whatsappio.cpp
+whatsappServer.cpp
+whatsappClient.cpp
+whatsappio.h
+
+REMARKS:
+
+
+ANSWERS:
+1.
+	a. First we will add another parse option in order to acknowledge the 
+new input command. second we need to add a new function that will check 
+the validity of the parsed command (i.e all argument are correct and legal) 
+after that we will send the command to the server to handle.
+	b. First we will add the parse option for recognition of the new command. 
+then adding a new function to check the group exist and that the client exist
+ in the group, then remove the client from the group and remove the group in 
+case it got empty. after success a message will be sent back to client.
+
+2. TCP protocol is reliable which means that a message we send will get to its 
+destination completely without any missing data. also the TCP protocol will inform 
+the sender if the recipient got the message so the sender will not need to double 
+send it as a safty net.
+
+3. online FPS games - online First Player Shooting games: usually invole a reach
+ and fast response enviroment. this kind of games need to act fast in order
+ to provide real time experience.
+Video Calls - (fun fact:in the past Skype worked with UDP protocol because of the
+ fast response time it had and when the technology got evolved and became faster
+ they started to use TCP protocol.) video calls required fast and continually 
+sync in order to avoid any delays.
+
+4. We will need to create backup for all data structures like the groups and their 
+members and all the clients that was connected to the server. Also saving the 
+current state of the server is needed so that the server will be able to restore
+ and recover conversations by a log. If anything will be lost it will be all 
+the action made in the client side and the action that are currently proccessed 
+at the moment by the server.
