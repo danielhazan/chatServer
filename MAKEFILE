@@ -1,0 +1,46 @@
+CC=g++
+CXX=g++
+RANLIB=ranlib
+
+LIBSRC=whatsappServer.cpp whatsappClient.cpp whatsappio.cpp
+LIBOBJ=$(LIBSRC:.cpp=.o)
+
+INCS=-I.
+CFLAGS = -Wall -std=c++11 -g $(INCS)
+CXXFLAGS = -Wall -std=c++11 -g $(INCS)
+
+
+LD=g++
+EXESRC=whatsappio.cpp
+EXEOBJ=$(EXESRC:.cpp=.o)
+LDFLAGS = -lpthread
+
+TAR=tar
+TARFLAGS=-cvf
+TARNAME=ex4.tar
+TARSRCS=whatsappio.h whatsappio.cpp whatsappClient.cpp whatsappServer.cpp Makefile README
+
+
+all: 
+	g++ -std=c++11 whatsappio.cpp whatsappClient.cpp -o whatsappClient
+	g++ -std=c++11 whatsappio.cpp whatsappServer.cpp -o whatsappServer
+	g++ -std=c++11 whatsappio.cpp whatsappServer.cpp -o whatsappServer	#g++ -std=c++11 whatsappio.cpp whatsappServer.cpp -o server
+
+$(TARGETS): $(LIBOBJ)
+	$(AR) $(ARFLAGS) $@ $^
+	$(RANLIB) $@
+
+clean:
+	$(RM) $(TARGETS) $(MapReduceFrameworkLIB) $(OBJ) $(LIBOBJ) $(SampleClient) $(EXEOBJ) *~ *core
+
+depend:
+	makedepend -- $(CFLAGS) -- $(SRC) $(LIBSRC)
+
+val:
+	g++ -Wall -std=c++11 -g -lpthread stam3.cpp -o a
+	valgrind --tool=drd --free-is-write=yes a
+	valgrind --tool=helgrind --read-var-info=yes a
+	valgrind --leak-check=full --show-possibly-lost=yes --show-reachable=yes --track-origins=yes a
+
+tar:
+$(TAR) $(TARFLAGS) $(TARNAME) $(TARSRCS)
